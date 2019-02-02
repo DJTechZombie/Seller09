@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
-    public Question[] questions;
+    private Question[] questions;
     private static List<Question> unansweredQuestions;
 
     private Question currentQuestion;
@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour {
 
             factText.text = currentQuestion.fact;
 
-            if(currentQuestion.isTrue)
+     /*       if(currentQuestion.isTrue)
             {
                 trueAnswerText.text = "CORRECT";
                 falseAnswerText.text = "WRONG";
@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour {
             trueAnswerText.text = "WRONG";
             falseAnswerText.text = "CORRECT";
             }
-
+            */
         }
 
     IEnumerator TransitionToNextQuestion()
@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour {
             clearText();
         }
     }
-
+    /*
    public void UserSelectTrue ()
     {
         animator.SetTrigger("True");
@@ -142,7 +142,7 @@ public class GameManager : MonoBehaviour {
         }
         StartCoroutine(TransitionToNextQuestion());
     }
-
+*/
     public void clearText()
     {
         finalScoreText.text = "FinalScore: " + score.ToString();
