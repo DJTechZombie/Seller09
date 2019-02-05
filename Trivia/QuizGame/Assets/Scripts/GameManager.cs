@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour {
     public Question[] questions;
     private static List<Question> unansweredQuestions;
 
+    private Question[] finalQuestions = new Question[10];
+
     private Question currentQuestion;
 
     [SerializeField]
@@ -59,7 +61,22 @@ public class GameManager : MonoBehaviour {
     private Text numQuestionsText;
 
     [SerializeField]
+    private Text timeLeftText;
+
+    [SerializeField]
     private static int i = 1;
+
+    [SerializeField]
+    private float timeLeft = 10.0f;
+
+    [SerializeField]
+    private Text categoryText;
+
+    [SerializeField]
+    private string selectedCategory;
+
+    [SerializeField]
+    private bool canCount;
 
     int j = 1;
 
@@ -70,6 +87,7 @@ public class GameManager : MonoBehaviour {
 
         if (sceneName == "Main")
         {
+            canCount = true;
             var Line = LoadQuestions.LoadQuestion();
             List<string> strContent = new List<string>();
             while (!Line.EndOfStream)
@@ -82,26 +100,45 @@ public class GameManager : MonoBehaviour {
                 questions[j - 1] = new Question(split);
                 j++;
             }
-        }  
+
         
         
        clearText();
+        //Load questions to Unanswered Questions List
        if(unansweredQuestions == null || unansweredQuestions.Count == 0)
         {
+            //finalQuestions = questions.Where(question=> question.category != selectedCategory).ToArray();
+            //unansweredQuestions = finalQuestions.ToList<Question>();
             unansweredQuestions = questions.ToList<Question>();
             score = 0;
             scoreText.text = "Score: 0000";
         }
-        numAnswers = questions.Length;
+        numAnswers = finalQuestions.Length;
         numQuestionsText.text = "Question: " + i.ToString() + " of " + numAnswers.ToString();
 
         SetCurrentQuestion();
         scoreText.text = "Score: " + score.ToString();
-        
-        //Debug.Log(currentQuestion.fact + " is " + currentQuestion.isTrue);
-        
-    }
 
+        timeLeft = 10.0f;
+            //Debug.Log(currentQuestion.fact + " is " + currentQuestion.isTrue);
+        }
+        else
+        {
+            canCount = false;
+        }
+
+    }
+    private void Update()
+    {
+        
+        if (timeLeft > 0.0f && canCount)
+        {
+            timeLeft = timeLeft - Time.deltaTime;
+            timeLeftText.text = timeLeft.ToString("N0");
+        }
+        else
+            StartCoroutine(TransitionToNextQuestion());
+    }
     void SetCurrentQuestion ()
         {
             int randomQuestionIndex = Random.Range(0, unansweredQuestions.Count);
@@ -112,6 +149,7 @@ public class GameManager : MonoBehaviour {
             answerBtext.text = currentQuestion.answerB;
             answerCtext.text = currentQuestion.answerC;
             answerDtext.text = currentQuestion.answerD;
+            categoryText.text = currentQuestion.category;
 
         /*       if(currentQuestion.isTrue)
                {
