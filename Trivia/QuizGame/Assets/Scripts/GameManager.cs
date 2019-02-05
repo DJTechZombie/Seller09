@@ -8,13 +8,22 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
-    private Question[] questions;
+    public Question[] questions;
     private static List<Question> unansweredQuestions;
 
     private Question currentQuestion;
 
     [SerializeField]
     private Text factText;
+
+    [SerializeField]
+    private Text answerAtext;
+    [SerializeField]
+    private Text answerBtext;
+    [SerializeField]
+    private Text answerCtext;
+    [SerializeField]
+    private Text answerDtext;
 
     [SerializeField]
     private float timeBetweenQuestions = 1f;
@@ -52,10 +61,32 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
     private static int i = 1;
 
+    int j = 1;
+
     void Start()
     {
-        clearText();
-        if(unansweredQuestions == null || unansweredQuestions.Count == 0)
+        Scene currentScene = SceneManager.GetActiveScene();
+        string sceneName = currentScene.name;
+
+        if (sceneName == "Main")
+        {
+            var Line = LoadQuestions.LoadQuestion();
+            List<string> strContent = new List<string>();
+            while (!Line.EndOfStream)
+            {
+                strContent.Add(Line.ReadLine());
+            }
+            while (j < 21)
+            {
+                var split = strContent[j].Split(',');
+                questions[j - 1] = new Question(split);
+                j++;
+            }
+        }  
+        
+        
+       clearText();
+       if(unansweredQuestions == null || unansweredQuestions.Count == 0)
         {
             unansweredQuestions = questions.ToList<Question>();
             score = 0;
@@ -68,7 +99,7 @@ public class GameManager : MonoBehaviour {
         scoreText.text = "Score: " + score.ToString();
         
         //Debug.Log(currentQuestion.fact + " is " + currentQuestion.isTrue);
-
+        
     }
 
     void SetCurrentQuestion ()
@@ -77,18 +108,22 @@ public class GameManager : MonoBehaviour {
             currentQuestion = unansweredQuestions[randomQuestionIndex];
 
             factText.text = currentQuestion.fact;
+            answerAtext.text = currentQuestion.answerA;
+            answerBtext.text = currentQuestion.answerB;
+            answerCtext.text = currentQuestion.answerC;
+            answerDtext.text = currentQuestion.answerD;
 
-     /*       if(currentQuestion.isTrue)
-            {
-                trueAnswerText.text = "CORRECT";
-                falseAnswerText.text = "WRONG";
-            }else
-            {
-            trueAnswerText.text = "WRONG";
-            falseAnswerText.text = "CORRECT";
-            }
-            */
-        }
+        /*       if(currentQuestion.isTrue)
+               {
+                   trueAnswerText.text = "CORRECT";
+                   falseAnswerText.text = "WRONG";
+               }else
+               {
+               trueAnswerText.text = "WRONG";
+               falseAnswerText.text = "CORRECT";
+               }
+               */
+    }
 
     IEnumerator TransitionToNextQuestion()
     {
@@ -107,11 +142,11 @@ public class GameManager : MonoBehaviour {
             clearText();
         }
     }
-    /*
-   public void UserSelectTrue ()
+    
+   public void UserSelectA ()
     {
-        animator.SetTrigger("True");
-        if(currentQuestion.isTrue)
+        //animator.SetTrigger("True");
+        if(currentQuestion.correctAnswer == "A")
         {
             //Debug.Log("CORRECT!");
             score += 100;
@@ -125,10 +160,11 @@ public class GameManager : MonoBehaviour {
         }
         StartCoroutine(TransitionToNextQuestion());
     }
-    public void UserSelectFalse()
+    
+    public void UserSelectB()
     {
-        animator.SetTrigger("False");
-        if (!currentQuestion.isTrue)
+       // animator.SetTrigger("False");
+        if (currentQuestion.correctAnswer == "B")
         { 
             //Debug.Log("CORRECT!");
             score += 100;
@@ -142,7 +178,41 @@ public class GameManager : MonoBehaviour {
         }
         StartCoroutine(TransitionToNextQuestion());
     }
-*/
+    public void UserSelectC()
+    {
+        // animator.SetTrigger("False");
+        if (currentQuestion.correctAnswer == "C")
+        {
+            //Debug.Log("CORRECT!");
+            score += 100;
+            correctAnswers += 1;
+            i += 1;
+        }
+        else
+        {
+            //Debug.Log("WRONG!");
+            i += 1;
+        }
+        StartCoroutine(TransitionToNextQuestion());
+    }
+    public void UserSelectD()
+    {
+        // animator.SetTrigger("False");
+        if (currentQuestion.correctAnswer == "D")
+        {
+            //Debug.Log("CORRECT!");
+            score += 100;
+            correctAnswers += 1;
+            i += 1;
+        }
+        else
+        {
+            //Debug.Log("WRONG!");
+            i += 1;
+        }
+        StartCoroutine(TransitionToNextQuestion());
+    }
+
     public void clearText()
     {
         finalScoreText.text = "FinalScore: " + score.ToString();
