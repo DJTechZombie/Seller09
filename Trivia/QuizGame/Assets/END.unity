@@ -535,12 +535,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questions:
   - fact: C# is an object oriented language.
-    isTrue: 1
+    answerA: 
+    answerB: 
+    answerC: 
+    answerD: 
+    value: 
+    correctAnswer: 
+    category: 
   - fact: Unity scrips MUST be written with Visual Studio.
-    isTrue: 0
+    answerA: 
+    answerB: 
+    answerC: 
+    answerD: 
+    value: 
+    correctAnswer: 
+    category: 
   - fact: Unity can be used to develop commercial games.
-    isTrue: 1
+    answerA: 
+    answerB: 
+    answerC: 
+    answerD: 
+    value: 
+    correctAnswer: 
+    category: 
   factText: {fileID: 33223040}
+  answerAtext: {fileID: 1353858736}
+  answerBtext: {fileID: 1353858736}
+  answerCtext: {fileID: 1353858736}
+  answerDtext: {fileID: 1353858736}
   timeBetweenQuestions: 1
   trueAnswerText: {fileID: 1353858736}
   falseAnswerText: {fileID: 265718401}
