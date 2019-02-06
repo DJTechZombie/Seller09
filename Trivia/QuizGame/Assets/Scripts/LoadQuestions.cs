@@ -13,47 +13,30 @@ public class LoadQuestions {
 
     public static StreamReader LoadQuestion()
     {
-        Debug.Log("Start of Log");
-        string path = "Assets/Questions/trivia.csv";
+        string path = "Assets/Questions/Spanish.csv";
 
-        if(path == null)
+        if (path == null)
         {
             Debug.Log("Trivia.CSV not found");
         }
-        else
-        if(path != null)
-        {
-            Debug.Log("Trivia.CSV file found.");
-        }
-        var _question = new List<string>();
-        var _answerA = new List<string>();
-        var _answerB = new List<string>();
-        var _answerC = new List<string>();
-        var _answerD = new List<string>();
-        var _correct = new List<string>();
-        var _value = new List<string>();
-        var _category = new List<string>();
-
-        StreamReader sr = new StreamReader(path);
-        return sr;
-        /*using (StreamReader sr = new StreamReader(path))
-        {
-            /*while(! sr.EndOfStream)
-            {
-               var split = sr.ReadLine().Split(',');
-               _question.Add(split[0]);
-               _answerA.Add(split[1]);
-               _answerB.Add(split[2]);
-               _answerC.Add(split[3]);
-               _answerD.Add(split[4]);
-               _correct.Add(split[5]);
-               _value.Add(split[6]);
-               _category.Add(split[7]);
+        /*else
+          if(path != null)
+              {
+                  Debug.Log("Trivia.CSV file found.");
             }
-       
+            */
+            var _question = new List<string>();
+            var _answerA = new List<string>();
+            var _answerB = new List<string>();
+            var _answerC = new List<string>();
+            var _answerD = new List<string>();
+            var _correct = new List<string>();
+            var _value = new List<string>();
+            var _category = new List<string>();
+
+            StreamReader sr = new StreamReader(path, System.Text.Encoding.UTF7);
             return sr;
-      }
-      */
+        
         
     }
 }
