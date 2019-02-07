@@ -1158,6 +1158,8 @@ MonoBehaviour:
   timeLeft: 10
   categoryText: {fileID: 1607756976}
   canCount: 0
+  correctFX: {fileID: 1292162460}
+  wrongFX: {fileID: 326835313}
 --- !u!4 &494107931
 Transform:
   m_ObjectHideFlags: 0

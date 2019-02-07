@@ -13,7 +13,8 @@ public class LoadQuestions {
 
     public static StreamReader LoadQuestion()
     {
-        string path = "Assets/Questions/Spanish.csv";
+        string path = Application.dataPath + "/StreamingAssets/Spanish.csv";
+        
 
         if (path == null)
         {

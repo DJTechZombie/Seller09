@@ -72,6 +72,9 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
     private bool canCount;
 
+    public AudioSource correctFX;
+    public AudioSource wrongFX;
+
     int j = 1;
 
     void Start()
@@ -116,12 +119,12 @@ public class GameManager : MonoBehaviour {
         Debug.Log(currentQuestion.correctAnswer);
         scoreText.text = "Score: " + score.ToString();
 
-        timeLeft = 10.0f;
+        timeLeft = 10.0f; //Set time limit for each question
 
     }
     private void Update()
     {
-        
+        //Countdown timer for each question
         if (timeLeft > 0.0f && canCount)
         {
             timeLeft = timeLeft - Time.deltaTime;
@@ -167,6 +170,11 @@ public class GameManager : MonoBehaviour {
         }
     }
     
+
+    // Select Answer
+    // Optimally, get name of selected answer and use a switch instead of 4 different methods
+    // get selected object is not working with MaterialUI buttons. Research work around or use unity UI buttons instead
+
    public void UserSelectA ()
     {
         
@@ -177,12 +185,13 @@ public class GameManager : MonoBehaviour {
             i += 1;
             animator.SetTrigger("Answered");
             trueAnswerText.text = "Correct";
+            correctFX.Play();
         }
         else
         {
             animator.SetTrigger("Answered");
             trueAnswerText.text = "Incorrect";
-
+            wrongFX.Play();
             i += 1;
         }
         StartCoroutine(TransitionToNextQuestion());
@@ -198,11 +207,13 @@ public class GameManager : MonoBehaviour {
             i += 1;
             animator.SetTrigger("Answered");
             trueAnswerText.text = "Correct";
+            correctFX.Play();
         }
         else
         {
             animator.SetTrigger("Answered");
             trueAnswerText.text = "Incorrect";
+            wrongFX.Play();
             i += 1;
         }
         StartCoroutine(TransitionToNextQuestion());
@@ -217,11 +228,13 @@ public class GameManager : MonoBehaviour {
             i += 1;
             animator.SetTrigger("Answered");
             trueAnswerText.text = "Correct";
+            correctFX.Play();
         }
         else
         {
             animator.SetTrigger("Answered");
             trueAnswerText.text = "Incorrect";
+            wrongFX.Play();
             i += 1;
         }
         StartCoroutine(TransitionToNextQuestion());
@@ -236,16 +249,20 @@ public class GameManager : MonoBehaviour {
             i += 1;
             animator.SetTrigger("Answered");
             trueAnswerText.text = "Correct";
+            correctFX.Play();
         }
         else
         {
             animator.SetTrigger("Answered");
             trueAnswerText.text = "Incorrect";
+            wrongFX.Play();
             i += 1;
         }
         StartCoroutine(TransitionToNextQuestion());
     }
 
+
+    // Clear text fields and instantiate score
     public void clearText()
     {
         finalScoreText.text = "FinalScore: " + score.ToString();
