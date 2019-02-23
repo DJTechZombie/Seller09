@@ -1,0 +1,44 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+
+int main()
+{
+    int LuckyBall[18];
+    int WhiteBall[48];
+    int minNum = 1;
+    int LuckyMax = 18;
+    int WhiteMax = 48;
+    int NumDraws = 0;
+
+srand(time(NULL));
+
+
+    for(int i =1; i <= 18; i++)
+    {
+    LuckyBall[i] = i;
+    }
+
+    for(int i = 1; i <= 48; i++)
+    {
+    WhiteBall[i] = i;
+    }
+
+    cout<<"How many draws would you like?" << endl;
+    cin >> NumDraws;
+    cout << "Lucky Numbers:" << endl;
+
+    for(int j=0; j<NumDraws; j++)
+    {
+        for(int i=0; i<=4; i++)
+        {
+            
+        int WhiteRand = rand() %WhiteMax + minNum;
+		cout << WhiteBall[WhiteRand] << " ";
+                }
+        int LuckyRand = rand() %LuckyMax + minNum;
+        cout << ": " << LuckyBall[LuckyRand] << endl;
+    }
+    return 0;
+}
