@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/TitleMenu.unity
+    guid: bad9ae6f20c050a4b869c980a97d40ae
+  - enabled: 1
+    path: Assets/LoadScene_1.unity
+    guid: 9dfaf03e0595f3743a6365f817492897
+  - enabled: 1
+    path: Assets/TestLevel.unity
+    guid: a79e031ffcf0d434b9575189152e8572
+  - enabled: 1
+    path: Assets/LoadScene_2.unity
+    guid: 914d80fc3ca27904e8d44b4b5170d80c
+  - enabled: 1
+    path: Assets/TestLevel_2.unity
+    guid: cea8d391ed0b540418022894dce8a5ca
+  - enabled: 1
+    path: Assets/LoadScene_3.unity
+    guid: 26c60179f9846b64082c932038a06128
+  - enabled: 1
+    path: Assets/TestLevel_3.unity
+    guid: 6ab8df3c28a4e054190095efa7b32f5a
+  - enabled: 1
+    path: Assets/LoadScene_4.unity
+    guid: a83dd2f63b2192f45af8a21fe9336a0b
+  - enabled: 1
+    path: Assets/TestLevel_4.unity
+    guid: 432236f9e39f6b64d9db5d2efe884737
+  - enabled: 1
+    path: Assets/LoadScene_5.unity
+    guid: 22508884669bae740818f52631d2278f
+  - enabled: 1
+    path: Assets/TestLevel_5.unity
+    guid: e8676b42f93d89c41839a81919e33cc8
+  - enabled: 1
+    path: Assets/LoadScene_6.unity
+    guid: b340831b775cd8347a4405e69d06f68a
+  - enabled: 1
+    path: Assets/_TeaserScene/TeaserScene.unity
+    guid: 20f33905a57af5e4c90f94b579cb6a38
+  - enabled: 1
+    path: Assets/DeadScene.unity
+    guid: 878fd071821a8424196061b4a8c0f5f0
+  m_configObjects: {}
