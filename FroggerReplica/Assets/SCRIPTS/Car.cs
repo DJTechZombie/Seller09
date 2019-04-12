@@ -15,6 +15,8 @@ public class Car : MonoBehaviour {
 	{
 		speed = Random.Range(minSpeed, maxSpeed);
         activeTime = Time.time;
+        speed *= GameManager.manager.carSpeed;
+        setSize();
 	}
 
 	void FixedUpdate () {
@@ -36,5 +38,13 @@ public class Car : MonoBehaviour {
     void DestroyAfterTime()
     {
         Destroy(this.gameObject);
+    }
+
+    void setSize()
+    {
+        float sizeX = transform.localScale.x * GameManager.manager.carSize;
+        float sizeY = transform.localScale.y * GameManager.manager.carSize;
+        transform.localScale = new Vector3(sizeX, sizeY, 1f);
+
     }
 }

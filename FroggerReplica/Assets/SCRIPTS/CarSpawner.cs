@@ -10,7 +10,12 @@ public class CarSpawner : MonoBehaviour {
 
 	float nextTimeToSpawn = 0f;
 
-	void Update ()
+    private void Start()
+    {
+        spawnDelay *= GameManager.manager.spawnSpeed;
+    }
+
+    void Update ()
 	{
 		if (nextTimeToSpawn <= Time.time)
 		{

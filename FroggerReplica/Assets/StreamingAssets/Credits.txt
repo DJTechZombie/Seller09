@@ -1,0 +1,16 @@
+﻿Based on Frogger by Konami
+
+Initial design and programming by Brackeys
+
+Additional programming by Jeremy Sellers
+
+Game Testers:
+• Cody Taylor
+• Brandy Moore
+
+Music:
+• Chris Plex     
+
+Sound Effects:
+• Jeremy Sellers
+• Pulse Studios

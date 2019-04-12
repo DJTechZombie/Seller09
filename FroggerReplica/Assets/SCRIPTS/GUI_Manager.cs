@@ -9,14 +9,17 @@ public class GUI_Manager : MonoBehaviour
 
     public GameObject pauseScreen;
 
-    public GameObject heart1, heart2, heart3;
+    public GameObject heart1, heart2, heart3, heart4, heart5;
 
     public Text scoreText;
+    public Text lifeScoreText;
+    public Text levelText;
 
     private void Awake()
     {
         guiMan = this;
-        scoreText.text = "Score: " + GameManager.manager.score;
+        scoreText.text = "Total Score: " + GameManager.manager.score;
+        lifeScoreText.text = "Score This Life: " + GameManager.manager.lifeScore;
     }
 
 
@@ -27,25 +30,37 @@ public class GUI_Manager : MonoBehaviour
         //Intialize Life Display
         switch(GameManager.manager.lives)
         {
+            case 5:
+                {
+                }
+                break;
+
+            case 4:
+                {
+                    heart5.SetActive(false);
+                }
+                break;
+
+
             case 3:
                 {
-                    heart3.SetActive(true);
-                    heart2.SetActive(true);
-                    heart1.SetActive(true);
+                    heart5.SetActive(false);
+                    heart4.SetActive(false);
                 }
                 break;
             case 2:
                 {
+                    heart5.SetActive(false);
+                    heart4.SetActive(false);
                     heart3.SetActive(false);
-                    heart2.SetActive(true);
-                    heart1.SetActive(true);
                 }
                 break;
             case 1:
                 {
+                    heart5.SetActive(false);
+                    heart4.SetActive(false);
                     heart3.SetActive(false);
                     heart2.SetActive(false);
-                    heart1.SetActive(true);
                 }
                 break;
 
@@ -55,7 +70,7 @@ public class GUI_Manager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        levelText.text = (GameManager.manager.levelsCleared + 1).ToString();
     }
 
     public void EnablePauseScreen()

@@ -15,18 +15,41 @@ public class GameManager : MonoBehaviour
     [SerializeField] public List<Scores> HighScores = new List<Scores>();
 
     public int score = 0;
+    public int lifeScore = 0;
+    public int fliesEaten = 0;
+    public int levelsCleared = 0;
 
     private bool isPaused = false;
+
+
+    [Header("Game Options")]
+    public float frogSize = 1;
+    public float carSize = 1;
+    public float carSpeed = 1;
+    public float maxLives = 3;
+    public float spawnSpeed = 1;
+
+    // Save to streaming Assets for Assignment
+    private string dataPath = Application.streamingAssetsPath;
 
     private void Awake() //singleton design
     {
 
-
-        if (!File.Exists(Application.persistentDataPath + "/scores.dat"))
+        // Save Scores file in build specific user data - Windows : C:\Users\USERNAME\AppData\LocalLow\DefaultCompany\FroggerReplica 
+        /*
+         if (!File.Exists(Application.persistentDataPath + "/scores.dat"))
         {
             InitializeScores();
             Debug.Log(Application.persistentDataPath + "/scores.dat created");
         }
+        */
+        // Save to streaming Assets for Assignment
+        if (!File.Exists( dataPath + "/scores.txt"))
+        {
+            InitializeScores();
+            Debug.Log(dataPath + "/scores.txt created");
+        }
+
 
         LoadScores();
 
@@ -70,8 +93,9 @@ public class GameManager : MonoBehaviour
     }
     public void InitializeScores()
     {
-        BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Create(Application.persistentDataPath + "/scores.dat");
+        //BinaryFormatter bf = new BinaryFormatter(); // encode score data
+
+        //FileStream file = File.Create(Application.persistentDataPath + "/scores.dat");   //Build Specific location
 
         List<Scores> _scores = new List<Scores>();
         _scores.Add(new Scores("SUE", 1000));
@@ -80,33 +104,67 @@ public class GameManager : MonoBehaviour
         _scores.Add(new Scores("JAN", 400));
         _scores.Add(new Scores("MOE", 200));
 
-        bf.Serialize(file, _scores);
-        file.Close();
+        //bf.Serialize(file, _scores); write file using BinaryFormatter
+
+        StreamWriter sw = new StreamWriter(dataPath+"/Scores.txt");
+
+        for (int i = 0; i < _scores.Count; i++)
+        {
+            sw.WriteLine(String.Join(",", _scores[i].playerName.ToString(), _scores[i].finalScore.ToString()));
+        }
+       
+        sw.Close();
     }
 
 
     public void SaveScores()
     {
-        BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Create(Application.persistentDataPath + "/scores.dat");
+        //BinaryFormatter bf = new BinaryFormatter(); encode score data
+
+        //FileStream file = File.Create(Application.persistentDataPath + "/scores.dat");
 
         List<Scores> _scores = new List<Scores>();
         _scores = HighScores;
-        bf.Serialize(file, _scores);
-        file.Close();
+        //bf.Serialize(file, _scores); write file using binary formater
+        //file.Close();
+
+        StreamWriter sw = new StreamWriter(dataPath + "/Scores.txt");  //StreamWriter Save
+
+        for (int i = 0; i < _scores.Count; i++)
+        {
+            sw.WriteLine(String.Join(",", _scores[i].playerName.ToString(), _scores[i].finalScore.ToString()));
+        }
+
+        sw.Close();
+
     }
 
     public void LoadScores()
     {
-        if (File.Exists(Application.persistentDataPath + "/scores.dat"))
+        //if (File.Exists(Application.persistentDataPath + "/scores.dat"))
+        if (File.Exists(dataPath + "/scores.txt"))
         {
-            BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Open(Application.persistentDataPath + "/scores.dat", FileMode.Open);
-            List<Scores> _scores = (List<Scores>)bf.Deserialize(file);
+            //BinaryFormatter bf = new BinaryFormatter();
+            //FileStream file = File.Open(Application.persistentDataPath + "/scores.dat", FileMode.Open);
+            FileStream file = File.Open(dataPath + "/scores.txt", FileMode.Open);
+            //  FIXME
+            //List<Scores> _scores = (List<Scores>)bf.Deserialize(file);
+            //List<Scores> _scores = (List<Scores>)bf.Deserialize(file); //read score from binary formatter
+            StreamReader sr = new StreamReader(file);
+            List<Scores> _scores = new List<Scores>();
+            while(!sr.EndOfStream)
+            {
+                string inputString = sr.ReadLine();
+                string[] elements = inputString.Split(',');
+                string inName = elements[0];
+                int inScore = Convert.ToInt32(elements[1]);
+                Scores currentScore = new Scores(inName, inScore);
+                _scores.Add(currentScore);
+            }
+            sr.Close();
             file.Close();
 
             HighScores = _scores;
-
         }
     }
     public void AddScore(string _init, int _score)
@@ -118,16 +176,31 @@ public class GameManager : MonoBehaviour
     {
         return p1.finalScore.CompareTo(p2.finalScore);
     }
+
+    public string DisplayScores()
+    {
+        string allScores = "";
+        FileStream file = File.Open(dataPath + "/scores.txt", FileMode.Open);
+        StreamReader sr = new StreamReader(file);
+        for(int i =0; i <10; i++)
+        {
+            allScores += sr.ReadLine() + '\n';
+        }
+        sr.Close();
+        file.Close();
+        allScores = allScores.Replace(',', '\t');
+        return allScores;
+    }
 }
 
 [Serializable]
 public class Scores //: IComparable<Scores>
 {
-    public string playerInitials;
+    public string playerName;
     public int  finalScore;
     public Scores(string _init, int _score)
     {
-        playerInitials = _init;
+        playerName = _init;
         finalScore = _score;
     }
 }

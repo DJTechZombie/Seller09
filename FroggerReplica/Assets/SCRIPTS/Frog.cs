@@ -10,6 +10,8 @@ public class Frog : MonoBehaviour {
     private void Start()
     {
             audioSource = GetComponent<AudioSource>();
+        SetSize();
+        
     }
     void Update() {
 
@@ -60,6 +62,7 @@ public class Frog : MonoBehaviour {
                 GameManager.manager.lives--;
                 GUI_Manager.guiMan.DisplayLives(GameManager.manager.lives);
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                GameManager.manager.lifeScore = 0;
             }
             else
             {
@@ -72,7 +75,15 @@ public class Frog : MonoBehaviour {
             Debug.Log("Fly collected");
             Destroy(col.gameObject);
             GameManager.manager.score += 250;
+            GameManager.manager.lifeScore += 250;
+            GameManager.manager.fliesEaten++;
             GUI_Manager.guiMan.UpdateScore(GameManager.manager.score);
         }
 	}
+    void SetSize()
+    {
+        float sizeX = transform.localScale.x * GameManager.manager.frogSize;
+        float sizeY = transform.localScale.y * GameManager.manager.frogSize;
+        transform.localScale = new Vector3(sizeX, sizeY, 1f);
+    }
 }
