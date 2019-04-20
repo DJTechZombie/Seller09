@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Blade
   - Fruit
+  - Explosion
   layers:
   - Default
   - TransparentFX
