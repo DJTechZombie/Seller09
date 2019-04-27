@@ -1,0 +1,11 @@
+Chuck Norris,999999999,100.00
+Rocky,500,95.00
+Colt,400,95.00
+Tum Tum,350,90.00
+Jeremy,308,78.75
+Donatello,300,85.60
+Michelangelo,250,85.00
+Raphael,200,75.00
+Leonardo,150,90.00
+Splinter,50,99.00
+Johnny,25,50.00

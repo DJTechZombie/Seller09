@@ -12,7 +12,7 @@ public class Blade : MonoBehaviour {
 	Vector2 previousPosition;
 
 	GameObject currentBladeTrail;
-
+    TrailRenderer trail;
 	Rigidbody2D rb;
 	Camera cam;
 	CircleCollider2D circleCollider;
@@ -28,7 +28,12 @@ public class Blade : MonoBehaviour {
         float scale = transform.localScale.x * GameManager.instance.bladeSizeMult;
 
         transform.localScale = new Vector3(scale, scale, scale);
-	}
+        circleCollider.radius *= GameManager.instance.bladeSizeMult;
+
+        trail = bladeTrailPrefab.GetComponent<TrailRenderer>();
+        trail.startWidth = GameManager.instance.trailSizeMult;
+        trail.endWidth = GameManager.instance.trailSizeMult;
+    }
 
 	// Update is called once per frame
 	void Update () {

@@ -59,16 +59,19 @@ public class UIcontroller : MonoBehaviour
         switch (BladeSize.value)
         {
             case 2:
-                GameManager.instance.bladeSizeMult = 1.5f;
-                BladeSizeText.text = "150%";
+                GameManager.instance.bladeSizeMult = 3f;
+                GameManager.instance.trailSizeMult = 1f;
+                BladeSizeText.text = "300%";
                 break;
             case 1:
-                GameManager.instance.bladeSizeMult = 1;
-                BladeSizeText.text = "100%";
+                GameManager.instance.bladeSizeMult = 2;
+                GameManager.instance.trailSizeMult = .5f;
+                BladeSizeText.text = "200%";
                 break;
             case 0:
-                GameManager.instance.bladeSizeMult = 0.5f;
-                BladeSizeText.text = "50%";
+                GameManager.instance.bladeSizeMult = 1f;
+                GameManager.instance.trailSizeMult = .15f;
+                BladeSizeText.text = "100%";
                 break;
         }
     }

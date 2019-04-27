@@ -22,12 +22,15 @@ public class GameManager : MonoBehaviour
     public float bestRatio = 0f;
     public int allFruit;
     public float timeLimit = 60f;
+    public float totalRatio= 0f;
 
     public bool canSpawn = true;
 
     [Header("Game Options")]
     public float fruitSizeMult = 1f;
     public float bladeSizeMult = 1f;
+    public float bladeTrailMult = .5f;
+    public float trailSizeMult = 0.15f;
     public float gravityScaleMult = 1f;
     public float fruitSpeedMult = 1f;
     public float SpawnSpeedMult = 1f;
@@ -47,10 +50,11 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
+    }
+    private void Start()
+    {
         scoreManager.CheckForScores();
     }
-
     private void Update()
     {
         CalculateRatio();
@@ -98,14 +102,15 @@ public class GameManager : MonoBehaviour
         {
             bestRatio = HitMissRatio;
         }
-
         TotalSliced += fruitSliced;
         TotalMissed += fruitMissed;
         allFruit += totalFruit;
+        totalRatio = ((float)TotalSliced / (float)allFruit) * 100;
     }
 
     public void ResetAll()
     {
+        Debug.Log("Resetting All Counters");
         TotalSliced = 0;
         TotalMissed = 0;
         allFruit = 0;
@@ -113,19 +118,25 @@ public class GameManager : MonoBehaviour
         fruitMissed = 0;
         fruitSliced = 0;
         HitMissRatio = 0;
+        score = 0;
         playerName = null;
         canSpawn = true;
+        
     }
 
     public void GameOver()
     {
         UpdateStats();
-        scoreManager.AddScore(playerName, score);
+        scoreManager.AddScore(playerName, score, totalRatio);
         SceneManager.LoadScene("EndScene");
     }
 
     public void QuitGame()
     {
+#if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
     }
 }

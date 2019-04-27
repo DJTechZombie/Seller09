@@ -47,13 +47,13 @@ public class GamePlayController : MonoBehaviour
         {
             timeLimit -= Time.deltaTime;
             timerDisplay.value = timeLimit;
-            if (timeLimit <= 30f)
-            {
-                fill.color = Color.yellow;
-            }
-            else if(timeLimit <= 15f)
+            if (timeLimit <= 15f)
             {
                 fill.color = Color.red;
+            }
+            else if(timeLimit <= 30f)
+            {
+                fill.color = Color.yellow;
             }
         }
         else if (timeLimit <= 0)

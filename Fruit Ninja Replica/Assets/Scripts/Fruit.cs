@@ -17,6 +17,7 @@ public class Fruit : MonoBehaviour {
         rb.AddForce(transform.up * startForce, ForceMode2D.Impulse);
         float scale = transform.localScale.x * GameManager.instance.fruitSizeMult;
         transform.localScale = new Vector3(scale,scale,scale);
+       
 	}
 
 	void OnTriggerEnter2D (Collider2D col)
@@ -32,6 +33,11 @@ public class Fruit : MonoBehaviour {
 			Destroy(slicedFruit, 3f);
 			Destroy(gameObject);
 		}
+        else if(col.tag == "Explosion")
+        {
+            GameManager.instance.score -= 1;
+            Destroy(gameObject);
+        }
 	}
 
 }
